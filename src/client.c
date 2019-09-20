@@ -228,6 +228,11 @@ int main(int argc, char** argv)
     SSL_CTX_set_verify(ctx, SSL_VERIFY_NONE, NULL);
 
     //需要验证服务器证书
+    //如果是非权威CA（自己生成的TEST CA） 则需要先加载CA证书才能通过校验
+    //ret = SSL_CTX_load_verify_locations(ctx, ca_file, NULL);
+    //
+    //加载成功之后，服务器证书就可以验证通过，否则验证失败Unkonw CA
+    //
     /* SSL_CTX_set_verify(ctx, SSL_VERIFY_PEER, NULL); */
 
     ssl = SSL_new(ctx);
